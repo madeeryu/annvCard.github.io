@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anniversary Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        /* Previous styles remain the same until sticky-note */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-image: url('asset/cover.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: repeat;
+            background-attachment: fixed;
+            color: white;
+            text-align: center;
+        }
+
+        .landing-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            position: relative;
+        }
+
+        .landing-page img {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .landing-page button {
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 50%;
+            padding: 15px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .landing-page button:active {
+            transform: scale(1.1);
+        }
+
+        .landing-page p {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        #typing-page {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(135deg, rgba(255,192,203,0.2) 0%, rgba(255,182,193,0.2) 100%);
+        }
+
+        /* Enhanced sticky note styling */
+        #sticky-note {
+            background: linear-gradient(to bottom right, #fff8f8, #fff0f0);
+            width: 70%;
+            max-width: 500px;
+            height: 400px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: justify;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #ffb6c1 #fff0f0;
+            border: 2px solid #ffe4e1;
+        }
+
+        #sticky-note::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #sticky-note::-webkit-scrollbar-track {
+            background: #fff0f0;
+            border-radius: 4px;
+        }
+
+        #sticky-note::-webkit-scrollbar-thumb {
+            background: #ffb6c1;
+            border-radius: 4px;
+        }
+
+        #sticky-note::-webkit-scrollbar-thumb:hover {
+            background: #ff69b4;
+        }
+
+        #sticky-note::before {
+            content: "❤️ Our Story ❤️";
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 30px;
+            background: linear-gradient(45deg, #ff69b4, #ffb6c1);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Great Vibes', cursive;
+            font-size: 24px;
+            color: white;
+            padding: 5px 0;
+        }
+
+        #typing-text {
+            color: #4a4a4a;
+            white-space: pre-line;
+            font-family: 'Dancing Script', cursive;
+            font-size: 22px;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Added decorative elements */
+        .corner-heart {
+            position: absolute;
+            font-size: 24px;
+            color: #ffb6c1;
+        }
+
+        .top-left {
+            top: 10px;
+            left: 10px;
+        }
+
+        .top-right {
+            top: 10px;
+            right: 10px;
+        }
+
+        .bottom-left {
+            bottom: 10px;
+            left: 10px;
+        }
+
+        .bottom-right {
+            bottom: 10px;
+            right: 10px;
+        }
+
+        /* Rest of the styles remain the same */
+        #envelope {
+            display: none;
+            width: 80px;
+            margin-top: 20px;
+            animation: pulse 1.5s infinite;
+            cursor: pointer;
+        }
+
+        #video-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        #video-popup video {
+            width: 80%;
+            max-width: 800px;
+            border-radius: 10px;
+        }
+
+        #close-video {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: black;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+        .heart-decor {
+            position: absolute;
+            top: 10%;
+            width: 15%;
+            filter: drop-shadow(0 0 5px rgba(255, 182, 193, 0.5));
+        }
+
+        .heart-left {
+            left: 10%;
+            transform: rotate(-20deg);
+        }
+
+        .heart-right {
+            right: 10%;
+            transform: rotate(20deg);
+        }
+
+        .footer-text {
+            font-size: 14px;
+            margin-top: 20px;
+            color: white;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Added floating hearts animation */
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            color: #ffb6c1;
+            animation: float 3s infinite ease-in-out;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Previous HTML remains the same until sticky-note -->
+    <div class="landing-page" id="landing-page">
+        <img src="https://feeldreams.github.io/pandaputih.gif" alt="Cow Character">
+        <button id="start-btn">❤️</button>
+        <p>Sentuh LOVEnya!</p>
+    </div>
+
+    <div id="typing-page">
+        <img src="asset/heart_1.png" class="heart-decor heart-left" alt="Heart Left">
+        <img src="asset/heart_1.png" class="heart-decor heart-right" alt="Heart Right">
+
+        <div id="sticky-note" class="animate__animated animate__zoomIn">
+            <!-- Added decorative corners -->
+            <span class="corner-heart top-left">❤️</span>
+            <span class="corner-heart top-right">❤️</span>
+            <span class="corner-heart bottom-left">❤️</span>
+            <span class="corner-heart bottom-right">❤️</span>
+            <p id="typing-text"></p>
+        </div>
+
+        <!-- Added floating hearts -->
+        <div class="floating-heart" style="left: 20%; top: 30%;">❤️</div>
+        <div class="floating-heart" style="right: 25%; top: 40%; animation-delay: 1s;">❤️</div>
+        <div class="floating-heart" style="left: 30%; bottom: 30%; animation-delay: 2s;">❤️</div>
+
+        <img id="envelope" src="asset/cute.png" alt="Envelope">
+        <div class="footer-text">© ahmad ganteng</div>
+    </div>
+
+    <div id="video-popup">
+        <button id="close-video">Close</button>
+        <iframe src="https://www.youtube.com/embed/Echuokgc90Q" allowfullscreen></iframe>
+    </div>
+
+
+    <!-- Rest of the HTML and Script remains the same -->
+    <audio id="bg-music" loop>
+        <source src="lagu_fix.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Previous JavaScript code remains the same
+        const landingPage = document.getElementById('landing-page');
+        const typingPage = document.getElementById('typing-page');
+        const startBtn = document.getElementById('start-btn');
+        const typingText = document.getElementById('typing-text');
+        const bgMusic = document.getElementById('bg-music');
+        const envelope = document.getElementById('envelope');
+        const videoPopup = document.getElementById('video-popup');
+        const closeVideo = document.getElementById('close-video');
+        
+        const message = `Siapa sangka, sebuah bot tele bisa membawa cerita seindah ini? Agustus 2023, kita mulai dari layar kecil—chat sederhana yang lama-lama penuh tawa dan cerita tengah malam. Lima bulan berlalu, dan aku tahu ini bukan sekadar kebetulan.
+
+"Kamu seperti jawabannya semesta," kataku waktu itu, di awal Januari 2024. Kita memutuskan untuk melangkah lebih dekat, meski jarak masih jadi batas. Hari itu, 5 Januari, resmi menjadi milik kita—awal kisah yang lebih dari sekadar angka.
+
+Lalu waktu terus berjalan. Meski belum bertemu, aku belajar mencintaimu lewat suaramu, tawamu, bahkan keheningan di antaranya. Dan akhirnya, September 2024, dunia kita bertemu. Semua rasa yang dulu terjaga di layar kini nyata di depan mata.
+
+Aku hanya ingin bilang, thank you for being here, for choosing me, for letting me love you. Kehadiranmu adalah anugerah, lebih dari yang pernah aku bayangkan.
+
+Kamu adalah rumahku, tempat aku ingin pulang, selalu. ❤️
+
+Klik gambar pesan dibawah ya!`;
+
+    function startTypingAnimation() {
+        let i = 0;
+        bgMusic.play();
+        const typingEffect = setInterval(() => {
+            if (i < message.length) {
+                typingText.textContent += message[i];
+                i++;
+
+                // Automatically scroll down when text overflows the box
+                const stickyNote = document.getElementById('sticky-note');
+                stickyNote.scrollTop = stickyNote.scrollHeight;
+            } else {
+                clearInterval(typingEffect);
+                envelope.style.display = 'block';
+            }
+        }, 50);
+        const stickyNote = document.getElementById('sticky-note');
+        stickyNote.classList.add('animate__animated', 'animate__bounceInUp');
+    }
+
+    startBtn.addEventListener('click', () => {
+        startBtn.classList.add('zoom-out');
+        setTimeout(() => {
+            landingPage.style.display = 'none';
+            typingPage.style.display = 'flex';
+            startTypingAnimation();
+        }, 1000);
+    });
+
+    envelope.addEventListener('click', () => {
+        videoPopup.style.display = 'flex';
+    });
+
+    closeVideo.addEventListener('click', () => {
+        videoPopup.style.display = 'none';
+    });
+    </script>
+</body>
+</html>
