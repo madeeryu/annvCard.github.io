@@ -25,7 +25,42 @@
             color: white;
             text-align: center;
         }
+ /* Header Styles */
+        .anniversary-header {
+            display: none; /* Mulai tersembunyi */
+            position: fixed;
+            top: 10%;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: linear-gradient(to right, rgba(255,192,203,0.9), rgba(255,182,193,0.9));
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+            transition: opacity 0.5s ease; /* Animasi smooth */
+            opacity: 0; /* Awalnya transparan */
+        }
 
+
+        .header-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5em;
+            margin: 0;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header-subtitle {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.2em;
+            margin: 5px 0 0;
+            color: #fff;
+        }
+
+        .header-hearts {
+            position: absolute;
+            font-size: 24px;
+        }
         .landing-page {
             display: flex;
             flex-direction: column;
@@ -91,6 +126,7 @@
             scrollbar-width: thin;
             scrollbar-color: #ffb6c1 #fff0f0;
             border: 2px solid #ffe4e1;
+            margin-top: 120px;
         }
 
         #sticky-note::-webkit-scrollbar {
@@ -137,7 +173,7 @@
             font-family: "Afacad Flux", serif;
             font-size: 22px;
             position: relative;
-            padding: 20px;
+            padding: 5px;
         }
 
         /* Added decorative elements */
@@ -216,12 +252,14 @@
         }
 
         .heart-left {
-            left: 10%;
+            left: 5%;
+            top: 25%;
             transform: rotate(-20deg);
         }
 
         .heart-right {
-            right: 10%;
+            right: 5%;
+            top: 25%;
             transform: rotate(20deg);
         }
 
@@ -246,40 +284,68 @@
             animation: float 3s infinite ease-in-out;
             opacity: 0.6;
         }
+        @keyframes zoomFade {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(20);
+                opacity: 0;
+            }
+        }
+
+        .zoom-out {
+            animation: zoomFade 1s ease forwards;
+            z-index: 1000; /* Pastikan berada di atas elemen lainnya */
+            position: absolute;
+        }
+
     </style>
 </head>
 <body>
+
+
+
     <!-- Previous HTML remains the same until sticky-note -->
     <div class="landing-page" id="landing-page">
         <img src="https://feeldreams.github.io/pandaputih.gif" alt="Cow Character">
-        <button id="start-btn">❤️</button>
+        <button id="start-btn">💝</button>
         <p>Sentuh LOVEnya!</p>
     </div>
+
+    <!-- Anniversary Header -->
+    <div class="anniversary-header">
+        <span class="header-hearts heart-left">💝</span>
+        <h1 class="header-title">Happy Anniversary</h1>
+        <p class="header-subtitle">Our Love Story Continues...</p>
+        <span class="header-hearts heart-right">💝</span>
+    </div>
+
 
     <div id="typing-page">
         <img src="asset/heart_1.png" class="heart-decor heart-left" alt="Heart Left">
         <img src="asset/heart_1.png" class="heart-decor heart-right" alt="Heart Right">
 
-        <div id="sticky-note" class="animate__animated animate__zoomIn">
+        <div id="sticky-note" class="animate__animated animate__zoomIn animate__delay-1s">
             <!-- Added decorative corners -->
             <span class="corner-heart top-left">❤️</span>
             <span class="corner-heart top-right">❤️</span>
             <span class="corner-heart bottom-left">❤️</span>
             <span class="corner-heart bottom-right">❤️</span>
             <p id="typing-text"></p>
+            <img id="envelope" class="animate__animated animate__bounceIn" src="asset/cute.png" alt="Envelope">
         </div>
-
+        
         <!-- Added floating hearts -->
-        <div class="floating-heart" style="left: 20%; top: 30%;">❤️</div>
-        <div class="floating-heart" style="right: 25%; top: 40%; animation-delay: 1s;">❤️</div>
-        <div class="floating-heart" style="left: 30%; bottom: 30%; animation-delay: 2s;">❤️</div>
-        <div class="floating-heart" style="left: 10%; bottom: 10%; animation-delay: 2s;">❤️</div>
-        <div class="floating-heart" style="right: 50%; bottom: 10%; animation-delay: 2s;">❤️</div>
-        <div class="floating-heart" style="top: 15%; right: 10%; animation-delay: 2s;">❤️</div>
+        <div class="floating-heart" style="left: 10%; bottom: 5%; animation-delay: 1s;">❤️</div>
+        <div class="floating-heart" style="left: 50%; bottom: 5%; animation-delay: 1s;">❤️</div>
+        <div class="floating-heart" style="left: 90%; bottom: 5%; animation-delay: 1s;">❤️</div>
 
-        <img id="envelope" src="asset/cute.png" alt="Envelope">
+
         <div class="footer-text">© ahmad ganteng</div>
     </div>
+    
 
     <div id="video-popup">
         <button id="close-video">Close</button>
@@ -303,7 +369,7 @@
         const envelope = document.getElementById('envelope');
         const videoPopup = document.getElementById('video-popup');
         const closeVideo = document.getElementById('close-video');
-        
+        const header = document.querySelector('.anniversary-header');
         const message = `Siapa sangka, sebuah bot tele bisa membawa cerita seindah ini? 
 
 Agustus 2023, kita mulai dari layar kecil—chat sederhana yang lama-lama penuh tawa dan makna. Lima bulan berlalu, dan perasaan ini makin tidak bisa dibohongi.
@@ -332,28 +398,45 @@ Klik gambar pesan dibawah ya!, pastiin resolusinya pake yang tertinggi ya! denge
             } else {
                 clearInterval(typingEffect);
                 envelope.style.display = 'block';
+                envelope.style.margin = '0 auto';
+                envelope.style.textAlign = 'center';
             }
         }, 85);
         const stickyNote = document.getElementById('sticky-note');
-        stickyNote.classList.add('animate__animated', 'animate__bounceInUp');
+        stickyNote.classList.add('animate__animated', 'animate__fadeIn');
+    
     }
 
     startBtn.addEventListener('click', () => {
         startBtn.classList.add('zoom-out');
+
+        // Tunggu hingga animasi selesai (1 detik), lalu sembunyikan tombol dan lanjutkan
         setTimeout(() => {
-            landingPage.style.display = 'none';
-            typingPage.style.display = 'flex';
-            startTypingAnimation();
-        }, 1000);
-    });
+            landingPage.style.display = 'none'; // Sembunyikan landing page
+            typingPage.style.display = 'flex'; // Tampilkan halaman berikutnya
+
+            // Tampilkan header dengan animasi fadeInUp
+            header.style.display = 'block'; // Ubah display agar terlihat
+            header.classList.add('animate__animated', 'animate__fadeInUp');
+
+            // Tampilkan sticky note setelah header selesai
+            setTimeout(() => {
+                startTypingAnimation(); // Mulai animasi pengetikan
+            }, 2000); // Tunda sticky note 2 detik
+        }, 1000); // Durasi animasi zoom-out
+    });;
+
+
 
     envelope.addEventListener('click', () => {
         videoPopup.style.display = 'flex';
+        header.style.display = 'none';
         bgMusic.pause();
     });
-
+    
     closeVideo.addEventListener('click', () => {
         videoPopup.style.display = 'none';
+        header.style.display = 'block';
         bgMusic.play();
     });
     </script>
