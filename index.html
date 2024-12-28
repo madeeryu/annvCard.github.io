@@ -383,10 +383,10 @@ Aku hanya ingin bilang, thank you for being here, for choosing me, for letting m
 Kamu adalah rumahku, tempat aku ingin pulang, selalu. ❤️
 
 Klik gambar pesan dibawah ya!, pastiin resolusinya pake yang tertinggi ya! dengerin pake headset juga jangan lupa!`;
-    bgMusic.play();
-    function startTypingAnimation() {
-        let i = 0;
-        const typingEffect = setInterval(() => {
+function startTypingAnimation() {
+    let i = 0;
+    const typingEffect = setInterval(() => {
+            bgMusic.play(); 
             if (i < message.length) {
                 typingText.textContent += message[i];
                 i++;
